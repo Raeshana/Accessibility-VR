@@ -5,26 +5,24 @@ using UnityEngine;
 public class Teleport : MonoBehaviour
 {
     [SerializeField]
-    private Transform player;
-
-    [SerializeField]
     private Transform destination;
 
     [SerializeField]
     private GameObject playerGO;
 
-    [SerializeField]
-    private Material material;
-
-    [SerializeField]
+    private Transform playerPos;
     private ParticleSystem hasTp;
+
+    void Start() {
+        playerPos = playerGO.transform;
+        hasTp = playerGO.GetComponentInChildren<ParticleSystem>();
+    }
 
     void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Player")) {
             playerGO.SetActive(false);
-            player.position = destination.position;
+            playerPos.position = destination.position;
             playerGO.SetActive(true);
-            playerGO.GetComponent<MeshRenderer>().material = material;
             hasTp.Play();
         }
     }
