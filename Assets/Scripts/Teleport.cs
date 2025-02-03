@@ -16,12 +16,16 @@ public class Teleport : MonoBehaviour
     [SerializeField]
     private Material material;
 
+    [SerializeField]
+    private ParticleSystem hasTp;
+
     void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Player")) {
             playerGO.SetActive(false);
             player.position = destination.position;
             playerGO.SetActive(true);
             playerGO.GetComponent<MeshRenderer>().material = material;
+            hasTp.Play();
         }
     }
 }
